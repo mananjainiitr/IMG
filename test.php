@@ -16,10 +16,27 @@
      $city  = $_POST["city"];
      $phone = $_POST["number"];
   
-      if($_SERVER["REQUEST_METHOD"] == "POST") {
-     $mysqli -> query ("INSERT INTO manan_alluser ( username , age , gender, useremail , pass , city , phoneNo) VALUES  (" ."\"". $username ."\"". "," . $age .",\"" . $gender . "\""."," . "\"" . $useremail . "\"".","."\"" .$pass. "\"".",\"" .$city."\""."," .$phone.");"); 
-     print_r("INSERT INTO manan_alluser( username , age , gender, useremail , pass , city , phone) VALUES  (" ."\"". $username ."\"". "," . $age .",\"" . $gender . "\""."," . "\"" . $useremail . "\"".","."\"" .$pass. "\"".",\"" .$city."\"".",\"" .$phone."\"".");");
-}?>
+        if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $flag = 0;
+     $result = $mysqli->query("SELECT phoneNo FROM manan_alluser ;");
+     while($row = $result -> fetch_assoc()){
+       
+         
+          if ($row["phoneNo"] == ($phone%10000000000))
+         {
+          $flag = 1;
+         
+         }}
+     if ($flag == 0 )
+     {
+        $mysqli -> query ("INSERT INTO manan_alluser ( username , age , gender, useremail , pass , city , phoneNo) VALUES  (" ."\"". $username ."\"". "," . $age .",\"" . $gender . "\""."," . "\"" . $useremail . "\"".","."\"" .$pass. "\"".",\"" .$city."\""."," .$phone.");");
+        echo "sucessfull";
+     }
+     else
+     {
+         echo "unsucessfull";
+     }}
+?>
        
 
 <!DOCTYPE html>
