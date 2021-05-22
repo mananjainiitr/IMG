@@ -1,0 +1,60 @@
+<?php
+$mysqli = mysqli_connect("localhost","first_year","first_year","first_year");
+if (mysqli_connect_errno()){
+echo "failed to connect " . mysqli_connect_error();
+}
+else{
+    echo "fine<br />";
+}
+
+ $s1 = $mysqli->query("SELECT DISTINCT* FROM manan_profiledata WHERE (phonenumber  =". $_COOKIE["profile_data"].");");
+ while($row = $s1 -> fetch_assoc()){
+         if ($row["img_loc"])
+{
+$location = $row["img_loc"];
+$bio = $row["bio"];
+}
+}
+$s2 = $mysqli->query("SELECT DISTINCT* FROM manan_alluser WHERE (phoneNo  =". $_COOKIE["profile_data"].");");
+while($row2 = $s2 -> fetch_assoc()){
+         if ($row2["img_loc"])
+{
+$location = $row2["img_loc"];
+$bio = $row["bio"];
+}
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+
+    <body>
+    <table>
+    <tr>
+<?php echo "<img style ='width:200px;height:200px;border-radius:50%;' src =".$location.">";?>    
+    </tr>
+    <tr>
+<?php echo "<p>".$bio."</p>";?>
+    </tr>
+
+    <tr>
+<?php echo "<p>".$bio."</p>";?>
+    </tr>
+    <tr>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+
+        
+
+    </table>
+
+
+    </body>
+</html>
+

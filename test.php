@@ -1,11 +1,11 @@
-<?php
+<?php 
      $mysqli = mysqli_connect("localhost","first_year","first_year","first_year");
      if (mysqli_connect_errno()){
          echo "failed to connect " . mysqli_connect_error();
          exit();
      }
      else{
-         echo "fine<br />";
+       
      }
      $username = $_POST["name"] ;
      $age = $_POST["age"];
@@ -16,7 +16,8 @@
      $city  = $_POST["city"];
      $phone = $_POST["number"];
   
-        if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+/*        if($_SERVER["REQUEST_METHOD"] == "POST") {
         $flag = 0;
      $result = $mysqli->query("SELECT phoneNo FROM manan_alluser ;");
      while($row = $result -> fetch_assoc()){
@@ -34,8 +35,8 @@
      }
      else
      {
-         echo "unsucessfull";
-     }}
+         echo "<p style = 'color:red;' >* User already exist please try with diffrent phone number</p>";
+     }}*/
 ?>
        
 
@@ -44,13 +45,45 @@
     <head>
         <style>
              input{
-                 width :50vw;
+                 width :40vw;
+                 height :40px;
                  
              }
              body{
-                 background-color: lightblue;
+                 background-color: #cccccc;
              }
+            #box{
+                  background-color: white;
+                  width:40vw;
+                 padding : 50px;
+                 margin-left : 25vw;
+                 
+                  }
         </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>     
+   <script>
+$(document).ready(function(){
+$("#sign").click(function(e){
+var name = document.getElementById("name").value;
+var number = document.getElementById("number").value;
+var age = document.getElementById("age").value;
+var gender = document.getElementById("gender").value;
+var email = document.getElementById("email").value;
+var pass = document.getElementById("password").value;
+var city = document.getElementById("city").value;
+
+if (nameinput()!=false && name != "" && number != "" && age != "" && gender != "" && email != "" && city!= "" && pass!= "")
+{
+$.ajax({
+    url : "ajax.php",
+    type: 'post',
+   data:{ name : name,number:number,age:age,gender:gender,email:email,pass:pass,city:city},
+   success: function(response){$('#signerr').html(response); console.log(response);}});
+console.log(name+number+age+gender+email+pass+city);}
+e.preventDefault();
+})});
+
+</script>
         <script>
 
            function nameinput()
@@ -255,9 +288,9 @@
 
         </script>
     </head>
-    <body>
-        <h1>SIGN UP FORM</h1>
-        <form method = "post" onsubmit="return myfunction()">
+    <body><div id = "box" >
+        <h1 id = "signerr">SIGN UP FORM</h1>
+        <form id="frm" method = "post" onsubmit="return myfunction()">
             <label>Name</label><span style = "color:red;"id = usererror></span><br>
             <input oninput ="return nameinput()" id = "name" name = "name"type="text" placeholder="Please enter your name..."><br>
 
@@ -277,14 +310,15 @@
             <label>Email</label><span style = "color:red;"id = emailerror></span><br>
             <input oninput ="return emailinput()"id = "email" name = "email"type="text" placeholder="Please enter your email..."><br>
 
-            <label>Password (must contain atleast a special character & a letter & a number & minumum of 8 digit and max 16)</label><span style = "color:red;"id = passworderror></span><br>
+            <label>Password(must contain atleast a special character & a letter & a number & minumum of 8 digit and max 16)</label><span style = "color:red;"id = passworderror></span><br>
             <input oninput ="return passinput()"id = "password" name = "password"type="password" placeholder="Please enter your password..."><br>
    
             <label>Re-enter password</label><span style = "color:red;"id = repassworderror></span><br>
             <input oninput ="return repassinput()"id = "repass" name = "repass"type="password" placeholder="Please Re-enter your password..."><br>
             
-            <input style = "width:100px ; background-color: rgb(252, 252, 109); color:black"type="submit" class = "btn">
+            <input id="sign"  style = "margin-left:15vw;margin-top:10px; width:100px ; background-color: #3B5998 ; color:black"type="submit" class = "btn">
             </form>
-            
+            <a style ="margin-left:15vw;"href = "login.php">login page</a>
+            </div>
     </body>
 </html>

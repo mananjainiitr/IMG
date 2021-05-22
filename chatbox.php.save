@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+<body>
+<div <<<?php
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+<?php
+
+$mysqli = mysqli_connect("localhost","first_year","first_year","first_year");
+if (mysqli_connect_errno()){
+echo "failed to connect " . mysqli_connect_error();
+}
+else{
+    echo "fine<br />";
+}
+ if(isset($_POST['btn'])and ($_POST['message']!="")){
+//   $str = $mysqli->query("INSERT INTO manan_chats(sender_id,reciver_id,chat,time)VALUES(".$_COOKIE['profile_data'].",".$_COOKIE['message_to'].",\"".$_POST['message']."\"".",".time().");";}
+//echo "INSERT INTO manan_chats(sender_id,reciver_id,chat,time)VALUES(".$_COOKIE['profile_data'].",".$_COOKIE['message_to'].",\"".$_POST['message']."\"".",".time().");";
+}$str = $mysqli->query("INSERT INTO manan_chats(sender_id,reciver_id,chat,time)VALUES(".$_COOKIE['profile_data'].",".$_COOKIE['message_to'].",\"".$_POST['message']."\"".",".time().");");
+?>
+
+
+
+ <form method = "POST" action = "" enctype="multipart/form-data">
+ <input type = "text" name="message" required>
+  <button  name = "btn">Send</button>
+ </form>

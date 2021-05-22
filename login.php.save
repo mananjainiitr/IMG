@@ -5,7 +5,7 @@
           exit();
       }
       else{
-         // echo "fine<br />";
+          echo "fine<br />";
       }
 
       $phone = $_POST["number"];
@@ -16,8 +16,8 @@
     $flag = 0;
  $result = $mysqli->query("SELECT phoneNo , pass FROM manan_alluser ;");
  while($row = $result -> fetch_assoc()){
-     // echo $row["phoneNo"] . $phone . "<br>";
-     // echo $row["pass"] .$pass . "<br>";
+      echo $row["phoneNo"] . $phone . "<br>";
+      echo $row["pass"] .$pass . "<br>";
      
    
     if ($row["phoneNo"] == ($phone%10000000000)and $row["pass"]==$pass)
@@ -26,11 +26,10 @@
        if($remember)
       {
         $cookie_name = "username";
-        setcookie("user_data", $phone , time()+2*24*60*60 );   
+        setcookie("user_data", $phone , time()+2*24*60*60,"/" );   
         
       }
-setcookie("profile_data", $phone );
-	
+setcookie("profile_data", $phone , time()+2*24*60*60 ,"/");
      header("Location: http://ec2-3-128-28-166.us-east-2.compute.amazonaws.com/manan/profile.php"); 
      exit(); 
   
@@ -46,7 +45,7 @@ setcookie("profile_data", $phone );
        echo "sucessfull";
  }}
  function myfunc()
-       {setcookie("profile_data", $_COOKIE["user_data"]);
+       {
         header("Location: http://ec2-3-128-28-166.us-east-2.compute.amazonaws.com/manan/profile.php"); 
         exit(); 
 

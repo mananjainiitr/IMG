@@ -7,7 +7,7 @@ else{
     echo "fine<br />";
 }
     $f = 0 ;
-    $s1 = $mysqli->query("SELECT DISTINCT  img_loc FROM manan_profiledata WHERE (phonenumber  =". $_COOKIE["profile_data"].");");
+  /*  $s1 = $mysqli->query("SELECT DISTINCT  img_loc FROM manan_profiledata WHERE (phonenumber  =". $_COOKIE["profile_data"].");");
      while($row = $s1 -> fetch_assoc()){
          if ($row["img_loc"])
 {
@@ -17,7 +17,7 @@ $location = $row["img_loc"];
      header("Location: http://ec2-3-128-28-166.us-east-2.compute.amazonaws.com/manan/chat.php"); 
 
 }
-}
+}*/
 
 //echo "<img style ='width:200px;height:200px;border-radius:50%;' src = upload/default.jpeg>";
      if(isset($_POST['btn'])){
@@ -38,8 +38,9 @@ $fileext = array('png','jpg','jpeg');
  //     move_uploaded_file($_FILES['image']['tmp_name'], $target);
 //echo "<img style ='width:200px;height:200px;border-radius:50%;' src = ".$target.">";
       if(move_uploaded_file($_FILES['image']['tmp_name'], $target))
-{   $mysqli -> query ("INSERT INTO manan_profiledata (phonenumber,img_loc,bio) VALUES  (".$_COOKIE["profile_data"] . ",\"" . $target . "\""."," . "\"" . $bio . "\"".");");
-   $f = 1;
+{  // $mysqli -> query ("INSERT INTO manan_profiledata (phonenumber,img_loc,bio) VALUES  (".$_COOKIE["profile_data"] . ",\"" . $target . "\""."," . "\"" . $bio . "\"".");");
+   $mysqli -> query("UPDATE manan_profiledata SET img_loc =".$target." ,bio = ".$bio." WHERE phonenumber = ".$_COOKIE["profile_data"].";");
+$f = 1;
  header("Location: http://ec2-3-128-28-166.us-east-2.compute.amazonaws.com/manan/chat.php"); 
    // echo "confirm";
   // if(isset($_COOKIE["profile_data"])) 
@@ -55,8 +56,6 @@ else{echo "large file or wrong extention please try again";}
 
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html>
@@ -82,14 +81,15 @@ background-color:#cccccc;
     </head><div id = "prof">
     <body><h1>Please upload Your Profile!</h2>
         <?php // if ($f>0) {echo "<img style ='width:200px;height:200px;border-radius:50%;' src = ".$target.">";}else{echo "<img style ='width:200px;height:200px;border-radius:50%;' src = upload/default.jpeg>";?>
-	<?php if ($_FILES['image']['name']){ echo "<img style ='width:200px;height:200px;border-radius:50%;' src =".$target.">";}
+        <?php if ($_FILES['image']['name']){ echo "<img style ='width:200px;height:200px;border-radius:50%;' src =".$target.">";}
               else{  echo "<img style ='width:200px;height:200px;border-radius:50%;' src = upload/default.jpeg>";}
          ?>
 
             <form method = "POST" action = "profile.php" enctype="multipart/form-data">
             <input type = "file" name="image" required><br>
            <label>BIO.</label> <input id = "bio" type = "bio" name="bio" required><br>
-            <button  type = "submit" name = "btn">Upload Profile</button>
- </form></body>
+            <button  type = "submit" name = "btn">Update Profile</button>
+   </div> </body>
 </html>
+
 

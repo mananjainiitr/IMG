@@ -1,0 +1,42 @@
+
+<?php 
+$mysqli = mysqli_connect("localhost","first_year","first_year","first_year");
+if (mysqli_connect_errno()){
+echo "failed to connect " . mysqli_connect_error();
+}
+else{
+    echo "fine<br />";
+}
+     if(isset($_POST['btn'])){
+       echo "<pre>", print_r($_FILES), "</pre>";
+      $profileImageName = time() . '.' ."jpeg";
+      $target = 'upload/'.$_FILES['image']['name'];
+ //     move_uploaded_file($_FILES['image']['tmp_name'], $target);
+      if(move_uploaded_file($_FILES['image']['tmp_name'], $target))
+{
+     echo "<img src = ".$target.">";
+
+}
+
+      echo $target;
+      echo $_FILES['image']['tmp_name'];
+  }
+   
+
+
+?>
+
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <form method = "POST" action = "profile.php" enctype="multipart/form-data">
+            <input type = "file" name="image">
+            <input type = "bio" name="bio">
+            <button  type = "submit" name = "btn">Upload</button>
+    </body>
+</html>
